@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router";
 import { addToast, Divider } from "@heroui/react";
 import AirQualityTable from "../components/AirQualityTable";
 import AirQualityForm from "../components/AirQualityForm";
+import AirQualityChart from "../components/AirQualityChart";
 
 export default function AirQuality() {
   const [searchParams] = useSearchParams();
@@ -89,6 +90,7 @@ export default function AirQuality() {
     <>
       <TopNavigation></TopNavigation>
       <div className="p-8 m-auto max-w-[1024px] bg-foreground-900 rounded-[8px] mt-8">
+        <AirQualityChart airQualityLogs={airQualityLogs}></AirQualityChart>
         <AirQualityTable
           airQualityLogs={airQualityLogs}
           onDeleteLogSubmit={onDeleteLogSubmit}
