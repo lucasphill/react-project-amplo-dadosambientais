@@ -42,15 +42,20 @@ function TopNavigation() {
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
           />
-          <NavbarBrand>
+          {/* <NavbarBrand>
             <AcmeLogo />
             <p className="font-bold text-inherit">ACME</p>
-          </NavbarBrand>
+          </NavbarBrand> */}
         </NavbarContent>
 
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+        <NavbarContent
+          className="text-white hidden sm:flex gap-4"
+          justify="center"
+        >
           <NavbarItem onClick={() => navigate("/")}>
-            <Link href="/">Estações de análise</Link>
+            <Link className="text-white" href="/">
+              Estações de análise
+            </Link>
           </NavbarItem>
           <NavbarItem>
             {/* <Link aria-current="page" href="#">
