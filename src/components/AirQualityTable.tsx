@@ -8,13 +8,24 @@ import {
   Pagination,
   Input,
 } from "@heroui/react";
-import { columns, renderCell, AirQuality } from "../airquality/columns";
+import {
+  AirQuality,
+  AirQualityLog,
+  columns,
+  renderCell,
+} from "../airquality/columns";
 import { useCallback, useMemo, useState } from "react";
 import { SearchIcon } from "./icons";
+import AirQualityModal from "./AirQualityModal";
 
 interface AirQualityTableProps {
   airQualityLogs: AirQuality[];
   onDeleteLogSubmit: (id: string) => void;
+}
+
+interface ModalContent {
+  data: AirQualityLog;
+  obs: string;
 }
 
 export default function AirQualityTable({
@@ -83,6 +94,33 @@ export default function AirQualityTable({
     );
   }, [filterValue, onSearchChange, onClear]);
 
+  const defaultAirQualityLog: AirQualityLog = {
+    partículasInalaveis2: 0,
+    particulasInalaveis10: 0,
+    partículasTotaisEmSuspensao: 0,
+    dioxidoDeEnxofre: 0,
+    monoxidoDeCarbono: 0,
+    dioxidoDeNitrogenio: 0,
+    monoxidoDeNitrogenio: 0,
+    oxidosDeNitrogenio: 0,
+    ozonio: 0,
+  };
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState<ModalContent>({
+    data: defaultAirQualityLog,
+    obs: "",
+  });
+
+  const openModal = (data: AirQualityLog, obs: string) => {
+    setModalContent({ data, obs });
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="">
       <Table
@@ -113,8 +151,14 @@ export default function AirQualityTable({
             <TableRow key={item.id}>
               {(columnKey) => (
                 <TableCell>
-                  {renderCell(item, columnKey, () =>
-                    onDeleteLogSubmit(item.id)
+                  {renderCell(
+                    item,
+                    columnKey,
+                    () => onDeleteLogSubmit(item.id),
+                    () => {
+                      openModal(item.data, item.obs);
+                      console.log("item.data ", item.data);
+                    }
                   )}
                 </TableCell>
               )}
@@ -122,6 +166,13 @@ export default function AirQualityTable({
           )}
         </TableBody>
       </Table>
+      <AirQualityModal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        data={modalContent.data}
+        obs={<p>{modalContent.obs}</p>}
+        onClose={closeModal}
+      ></AirQualityModal>
     </div>
   );
 }

@@ -63,6 +63,7 @@ export default function AirQuality() {
   async function onAddLogSubmit(data: object, obs: string) {
     const stationId = urlId;
     const formData = { data, obs, stationId };
+    // console.log(formData);
 
     const response = await fetch("http://54.232.23.236:8080/api/AirQuality", {
       method: "POST",

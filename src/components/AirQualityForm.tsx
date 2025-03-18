@@ -8,16 +8,28 @@ interface AirqualityFormsProps {
 function AirQualityForm(props: AirqualityFormsProps) {
   const [obs, setObs] = useState("");
 
-  const [ParticulasInalaveis2, setParticulasInalaveis2] = useState("");
-  const [ParticulasInalaveis10, setParticulasInalaveis10] = useState("");
+  const [ParticulasInalaveis2, setParticulasInalaveis2] = useState<
+    string | null
+  >(null);
+  const [ParticulasInalaveis10, setParticulasInalaveis10] = useState<
+    string | null
+  >(null);
   const [ParticulasTotaisEmSuspensao, setParticulasTotaisEmSuspensao] =
-    useState("");
-  const [DioxidoDeEnxofre, setDioxidoDeEnxofre] = useState("");
-  const [MonoxidoDeCarbono, setMonoxidoDeCarbono] = useState("");
-  const [DioxidoDeNitrogenio, setDioxidoDeNitrogenio] = useState("");
-  const [MonoxidoDeNitrogenio, setMonoxidoDeNitrogenio] = useState("");
-  const [OxidosDeNitrogenio, setOxidosDeNitrogenio] = useState("");
-  const [Ozonio, setOzonio] = useState("");
+    useState<string | null>(null);
+  const [DioxidoDeEnxofre, setDioxidoDeEnxofre] = useState<string | null>(null);
+  const [MonoxidoDeCarbono, setMonoxidoDeCarbono] = useState<string | null>(
+    null
+  );
+  const [DioxidoDeNitrogenio, setDioxidoDeNitrogenio] = useState<string | null>(
+    null
+  );
+  const [MonoxidoDeNitrogenio, setMonoxidoDeNitrogenio] = useState<
+    string | null
+  >(null);
+  const [OxidosDeNitrogenio, setOxidosDeNitrogenio] = useState<string | null>(
+    null
+  );
+  const [Ozonio, setOzonio] = useState<string | null>(null);
 
   return (
     <>

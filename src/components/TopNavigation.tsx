@@ -1,14 +1,12 @@
 import React from "react";
 import {
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
   Link,
-  // Button,
 } from "@heroui/react";
 import { useNavigate } from "react-router";
 
@@ -42,36 +40,18 @@ function TopNavigation() {
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             className="sm:hidden"
           />
-          {/* <NavbarBrand>
-            <AcmeLogo />
-            <p className="font-bold text-inherit">ACME</p>
-          </NavbarBrand> */}
-        </NavbarContent>
-
-        <NavbarContent
-          className="text-white hidden sm:flex gap-4"
-          justify="center"
-        >
           <NavbarItem onClick={() => navigate("/")}>
             <Link className="text-white" href="/">
-              Estações de análise
+              Amplo Engenharia
             </Link>
-          </NavbarItem>
-          <NavbarItem>
-            {/* <Link aria-current="page" href="#">
-              Dados de qualidade do ar
-            </Link> */}
           </NavbarItem>
         </NavbarContent>
         <NavbarContent justify="end">
-          {/* <NavbarItem className="hidden lg:flex">
-            <Link href="#">Login</Link>
+          <NavbarItem onClick={() => navigate("/")}>
+            <Link className="text-white" href="/">
+              Home
+            </Link>
           </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign Up
-            </Button>
-          </NavbarItem> */}
         </NavbarContent>
         <NavbarMenu>
           {menuItems.map((item, index) => (

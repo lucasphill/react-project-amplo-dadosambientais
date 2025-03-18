@@ -9,10 +9,10 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { object } from "framer-motion/client";
+import { AirQuality, AirQualityLog } from "../airquality/columns";
 
 interface AirQualityTableProps {
-  airQualityLogs: object[];
+  airQualityLogs: AirQuality[];
 }
 
 ChartJS.register(
@@ -29,7 +29,7 @@ function AirQualityChart({ airQualityLogs }: AirQualityTableProps) {
   const arrayDeDados = airQualityLogs.map((item) => item.data);
   const arrayDeDatas = airQualityLogs.map((item) => item.insertTimeStamp);
 
-  const valoresSeparados = {};
+  const valoresSeparados: { [key: string]: [] } = {};
 
   // Coletando todas as chaves únicas
   arrayDeDados.forEach((obj) => {
@@ -41,9 +41,17 @@ function AirQualityChart({ airQualityLogs }: AirQualityTableProps) {
   });
 
   // Adiciona os valores das chaves
-  arrayDeDados.forEach((obj) => {
+  // arrayDeDados: //(13) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…
+  // obj: //{Ozonio: 54, DioxidoDeEnxofre: 2, MonoxidoDeCarbono: 4, OxidosDeNitrogenio: 3, DioxidoDeNitrogenio: 8...}
+  // valoresSeparados: //DioxidoDeEnxofre: (13) [8.49, 8, 8, 4, 0, 4, 4, 618, 618, 618, 618, 618, 2
+  arrayDeDados.forEach((obj: AirQualityLog) => {
     Object.keys(valoresSeparados).forEach((chave) => {
-      valoresSeparados[chave].push(obj[chave] ?? null); // Se a chave não existir no objeto, adiciona `null`
+      if (chave in obj) {
+        const valor = obj[chave as keyof AirQualityLog]; // Faz o cast para a chave correta
+        (valoresSeparados[chave] as (number | null)[]).push(valor ?? null); // Adiciona o valor ao array correspondente
+      } else {
+        // console.warn(`A chave "${chave}" não existe no objeto.`);
+      }
     });
   });
 
