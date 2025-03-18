@@ -9,9 +9,12 @@ export default function Stations() {
   const [stations, setStations] = useState<Station[]>([]);
 
   async function fetchStations() {
-    const response = await fetch("http://loadlens:8080/api/Station", {
-      method: "GET",
-    });
+    const response = await fetch(
+      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/Station`,
+      {
+        method: "GET",
+      }
+    );
     const data = await response.json();
     setStations(data.data);
   }
@@ -23,13 +26,16 @@ export default function Stations() {
   async function onAddStationSubmit(name: string, obs: string) {
     const formData = { name, obs };
 
-    const response = await fetch("http://loadlens:8080/api/Station", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/Station`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
     const data = await response.json();
     if (response.ok) {
       console.log(data);
@@ -47,9 +53,12 @@ export default function Stations() {
   }
 
   async function onDeleteStationSubmit(id: string) {
-    const response = await fetch(`http://loadlens:8080/api/Station?Id=${id}`, {
-      method: "DELETE",
-    });
+    const response = await fetch(
+      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/Station?Id=${id}`,
+      {
+        method: "DELETE",
+      }
+    );
     if (response.ok) {
       console.log(response.status);
       addToast({

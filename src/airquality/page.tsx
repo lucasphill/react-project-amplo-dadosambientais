@@ -14,7 +14,9 @@ export default function AirQuality() {
 
   async function fetchLogs() {
     const response = await fetch(
-      `http://loadlens:8080/api/AirQuality/ByStationId/${urlId}`,
+      `http://${
+        import.meta.env.VITE_REACT_API_URL
+      }:8080/api/AirQuality/ByStationId/${urlId}`,
       {
         method: "GET",
       }
@@ -40,7 +42,9 @@ export default function AirQuality() {
 
   async function onDeleteLogSubmit(id: string) {
     const response = await fetch(
-      `http://loadlens:8080/api/AirQuality?Id=${id}`,
+      `http://${
+        import.meta.env.VITE_REACT_API_URL
+      }:8080/api/AirQuality?Id=${id}`,
       {
         method: "DELETE",
       }
@@ -65,13 +69,16 @@ export default function AirQuality() {
     const formData = { data, obs, stationId };
     // console.log(formData);
 
-    const response = await fetch("http://loadlens:8080/api/AirQuality", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    const response = await fetch(
+      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/AirQuality`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    );
     const responseData = await response.json();
     if (response.ok) {
       addToast({
