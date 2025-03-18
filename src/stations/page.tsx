@@ -9,7 +9,7 @@ export default function Stations() {
   const [stations, setStations] = useState<Station[]>([]);
 
   async function fetchStations() {
-    const response = await fetch("http://localhost:8080/api/Station", {
+    const response = await fetch("http://loadlens:8080/api/Station", {
       method: "GET",
     });
     const data = await response.json();
@@ -23,7 +23,7 @@ export default function Stations() {
   async function onAddStationSubmit(name: string, obs: string) {
     const formData = { name, obs };
 
-    const response = await fetch("http://localhost:8080/api/Station", {
+    const response = await fetch("http://loadlens:8080/api/Station", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,12 +47,9 @@ export default function Stations() {
   }
 
   async function onDeleteStationSubmit(id: string) {
-    const response = await fetch(
-      `http://localhost:8080/api/Station?Id=${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`http://loadlens:8080/api/Station?Id=${id}`, {
+      method: "DELETE",
+    });
     if (response.ok) {
       console.log(response.status);
       addToast({
