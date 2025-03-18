@@ -14,7 +14,7 @@ export default function AirQuality() {
 
   async function fetchLogs() {
     const response = await fetch(
-      `http://54.232.23.236:8080/api/AirQuality/ByStationId/${urlId}`,
+      `http://localhost:8080/api/AirQuality/ByStationId/${urlId}`,
       {
         method: "GET",
       }
@@ -40,7 +40,7 @@ export default function AirQuality() {
 
   async function onDeleteLogSubmit(id: string) {
     const response = await fetch(
-      `http://54.232.23.236:8080/api/AirQuality?Id=${id}`,
+      `http://localhost:8080/api/AirQuality?Id=${id}`,
       {
         method: "DELETE",
       }
@@ -65,7 +65,7 @@ export default function AirQuality() {
     const formData = { data, obs, stationId };
     // console.log(formData);
 
-    const response = await fetch("http://54.232.23.236:8080/api/AirQuality", {
+    const response = await fetch("http://localhost:8080/api/AirQuality", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

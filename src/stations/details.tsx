@@ -15,7 +15,7 @@ export default function Details() {
 
   async function fetchStation() {
     const response = await fetch(
-      `http://54.232.23.236:8080/api/Station/${urlId}`,
+      `http://localhost:8080/api/Station/${urlId}`,
       {
         method: "GET",
       }
@@ -35,7 +35,7 @@ export default function Details() {
     const formData = { name, obs };
 
     const response = await fetch(
-      `http://54.232.23.236:8080/api/Station?Id=${id}`,
+      `http://localhost:8080/api/Station?Id=${id}`,
       {
         method: "PUT",
         headers: {
