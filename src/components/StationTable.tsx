@@ -58,7 +58,6 @@ export default function StationTable({
   }, [page, filteredItems]);
   //#endregion
 
-  //#region sort CORRIGIR ERRO DE SORT SOMENTE NA PAGINA FILTRADA
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
     column: "insertTimeStamp",
     direction: "descending",
@@ -135,7 +134,6 @@ export default function StationTable({
             />
           </div>
         }
-        // bottomContentPlacement="outside"
         sortDescriptor={sortDescriptor}
         onSortChange={setSortDescriptor}
       >

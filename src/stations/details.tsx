@@ -1,12 +1,21 @@
-import { addToast, Button, Input, Textarea } from "@heroui/react";
+import {
+  addToast,
+  BreadcrumbItem,
+  Breadcrumbs,
+  Button,
+  Input,
+  Textarea,
+} from "@heroui/react";
 import TopNavigation from "../components/TopNavigation";
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import LoadScreen from "../components/LoadScreen";
 
 export default function Details() {
   const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [searchParams] = useSearchParams();
   const urlId = searchParams.get("id");
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -22,7 +31,7 @@ export default function Details() {
     setName(data.data.name);
     setObs(data.data.obs);
     setId(data.data.id);
-    console.log(data.data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -47,17 +56,26 @@ export default function Details() {
       navigate("/");
     } else {
       const data = await response.json();
-      console.log(data);
       addToast({
         title: data.message,
       });
     }
   }
 
+  if (loading) {
+    <LoadScreen></LoadScreen>;
+  }
+
   return (
     <>
       <TopNavigation></TopNavigation>
       <div className="p-8 m-auto max-w-[1024px] bg-foreground-900 rounded-[8px] mt-8">
+        <div className="m-auto mb-4">
+          <Breadcrumbs>
+            <BreadcrumbItem onPress={() => navigate(-1)}>Home</BreadcrumbItem>
+            <BreadcrumbItem>Station Edit</BreadcrumbItem>
+          </Breadcrumbs>
+        </div>
         <div className="pt-6 w-full max-w gap-12">
           <Input
             required

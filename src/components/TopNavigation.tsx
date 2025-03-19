@@ -1,13 +1,4 @@
-import React from "react";
-import {
-  Navbar,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenuToggle,
-  NavbarMenu,
-  NavbarMenuItem,
-  Link,
-} from "@heroui/react";
+import { Navbar, NavbarContent, NavbarItem, Link } from "@heroui/react";
 import { useNavigate } from "react-router";
 
 export const AcmeLogo = () => {
@@ -24,22 +15,12 @@ export const AcmeLogo = () => {
 };
 
 function TopNavigation() {
-  //#region nav
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
   const navigate = useNavigate();
-
-  const menuItems = ["Cadastro", "Relatórios", "Editar"];
-  //#endregion
 
   return (
     <>
-      <Navbar onMenuOpenChange={setIsMenuOpen}>
+      <Navbar>
         <NavbarContent>
-          <NavbarMenuToggle
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="sm:hidden"
-          />
           <NavbarItem onClick={() => navigate("/")}>
             <Link className="text-white" href="/">
               Amplo Engenharia
@@ -53,26 +34,6 @@ function TopNavigation() {
             </Link>
           </NavbarItem>
         </NavbarContent>
-        <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                className="w-full"
-                color={
-                  index === 2
-                    ? "primary"
-                    : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-                }
-                href="#"
-                size="lg"
-              >
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
       </Navbar>
     </>
   );

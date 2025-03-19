@@ -4,10 +4,11 @@ import StationTable from "../components/StationTable";
 import TopNavigation from "../components/TopNavigation";
 import { Station } from "./columns";
 import { useEffect, useState } from "react";
+import LoadScreen from "../components/LoadScreen";
 
 export default function Stations() {
   const apiUrl = import.meta.env.VITE_REACT_API_URL;
-  console.log(apiUrl);
+  const [loading, setLoading] = useState(true);
 
   const [stations, setStations] = useState<Station[]>([]);
   async function fetchStations() {
@@ -16,6 +17,7 @@ export default function Stations() {
     });
     const data = await response.json();
     setStations(data.data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -65,6 +67,10 @@ export default function Stations() {
         title: data.message,
       });
     }
+  }
+
+  if (loading) {
+    <LoadScreen></LoadScreen>;
   }
 
   return (

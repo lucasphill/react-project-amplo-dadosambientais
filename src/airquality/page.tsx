@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import TopNavigation from "../components/TopNavigation";
-import { useSearchParams } from "react-router";
-import { addToast, Divider } from "@heroui/react";
+import { useNavigate, useSearchParams } from "react-router";
+import { addToast, BreadcrumbItem, Breadcrumbs, Divider } from "@heroui/react";
 import AirQualityTable from "../components/AirQualityTable";
 import AirQualityForm from "../components/AirQualityForm";
 import AirQualityChart from "../components/AirQualityChart";
+import LoadScreen from "../components/LoadScreen";
 
 export default function AirQuality() {
+  const navigate = useNavigate();
+
   const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [searchParams] = useSearchParams();
   const urlId = searchParams.get("id");
+  const [loading, setLoading] = useState(true);
 
   const [airQualityLogs, setAirQualityLogs] = useState([]);
 
@@ -26,12 +30,10 @@ export default function AirQuality() {
       addToast({
         title: data.message,
       });
+      setLoading(false);
     } else {
       setAirQualityLogs(data.data);
-      // console.log("Dados:", data.data);
-      // addToast({
-      //   title: data.message,
-      // });
+      setLoading(false);
     }
   }
 
@@ -61,7 +63,6 @@ export default function AirQuality() {
   async function onAddLogSubmit(data: object, obs: string) {
     const stationId = urlId;
     const formData = { data, obs, stationId };
-    // console.log(formData);
 
     const response = await fetch(`${apiUrl}/api/AirQuality`, {
       method: "POST",
@@ -85,10 +86,20 @@ export default function AirQuality() {
     }
   }
 
+  if (loading) {
+    <LoadScreen></LoadScreen>;
+  }
+
   return (
     <>
       <TopNavigation></TopNavigation>
       <div className="p-8 m-auto max-w-[1024px] bg-foreground-900 rounded-[8px] mt-8">
+        <div className="m-auto mb-4">
+          <Breadcrumbs>
+            <BreadcrumbItem onPress={() => navigate(-1)}>Home</BreadcrumbItem>
+            <BreadcrumbItem>Logs</BreadcrumbItem>
+          </Breadcrumbs>
+        </div>
         <AirQualityChart airQualityLogs={airQualityLogs}></AirQualityChart>
         <AirQualityTable
           airQualityLogs={airQualityLogs}
