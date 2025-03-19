@@ -38,14 +38,14 @@ sudo nano docker-compose.yml
 sudo nano react-project-amplo-dadosambientais/.env  
 docker-compose up -d
 
-ajustar o nginx para não ter erro ao recarregar a pagina
-docker exec -it <codigo do container do front end> sh
+ajustar o nginx para não ter erro ao recarregar a pagina  
+docker exec -it `<codigo do container do front end>` sh  
 
-apk add nano
-cd etc/nginx/conf.d/
-nano default.conf (conforme exemplo abaixo)
-exit
-reinicie o container
+apk add nano  
+cd etc/nginx/conf.d/  
+nano default.conf (conforme exemplo abaixo)  
+exit  
+reinicie o container  
 
 ```
 location / {
