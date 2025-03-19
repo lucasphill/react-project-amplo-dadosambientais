@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 
 export default function Details() {
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [searchParams] = useSearchParams();
   const urlId = searchParams.get("id");
 
@@ -14,12 +15,9 @@ export default function Details() {
   const [id, setId] = useState("");
 
   async function fetchStation() {
-    const response = await fetch(
-      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/Station/${urlId}`,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`${apiUrl}/api/Station/${urlId}`, {
+      method: "GET",
+    });
     const data = await response.json();
     setName(data.data.name);
     setObs(data.data.obs);
@@ -34,16 +32,13 @@ export default function Details() {
   async function onUpdateStationSubmit(name: string, obs: string, id: string) {
     const formData = { name, obs };
 
-    const response = await fetch(
-      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/Station?Id=${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    const response = await fetch(`${apiUrl}/api/Station?Id=${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
     if (response.ok) {
       addToast({
         title: formData.name,

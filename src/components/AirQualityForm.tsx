@@ -124,9 +124,9 @@ function AirQualityForm(props: AirqualityFormsProps) {
         <Button
           onPress={() => {
             const logData = {
-              partículasInalaveis2: ParticulasInalaveis2,
+              particulasInalaveis2: ParticulasInalaveis2,
               particulasInalaveis10: ParticulasInalaveis10,
-              partículasTotaisEmSuspensao: ParticulasTotaisEmSuspensao,
+              particulasTotaisEmSuspensao: ParticulasTotaisEmSuspensao,
               dioxidoDeEnxofre: DioxidoDeEnxofre,
               monoxidoDeCarbono: MonoxidoDeCarbono,
               dioxidoDeNitrogenio: DioxidoDeNitrogenio,

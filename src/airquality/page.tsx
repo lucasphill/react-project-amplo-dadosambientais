@@ -7,6 +7,7 @@ import AirQualityForm from "../components/AirQualityForm";
 import AirQualityChart from "../components/AirQualityChart";
 
 export default function AirQuality() {
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [searchParams] = useSearchParams();
   const urlId = searchParams.get("id");
 
@@ -14,9 +15,7 @@ export default function AirQuality() {
 
   async function fetchLogs() {
     const response = await fetch(
-      `http://${
-        import.meta.env.VITE_REACT_API_URL
-      }:8080/api/AirQuality/ByStationId/${urlId}`,
+      `${apiUrl}/api/AirQuality/ByStationId/${urlId}`,
       {
         method: "GET",
       }
@@ -41,14 +40,9 @@ export default function AirQuality() {
   }, []);
 
   async function onDeleteLogSubmit(id: string) {
-    const response = await fetch(
-      `http://${
-        import.meta.env.VITE_REACT_API_URL
-      }:8080/api/AirQuality?Id=${id}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`${apiUrl}/api/AirQuality?Id=${id}`, {
+      method: "DELETE",
+    });
     if (response.ok) {
       console.log(response.status);
       addToast({
@@ -69,16 +63,13 @@ export default function AirQuality() {
     const formData = { data, obs, stationId };
     // console.log(formData);
 
-    const response = await fetch(
-      `http://${import.meta.env.VITE_REACT_API_URL}:8080/api/AirQuality`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    const response = await fetch(`${apiUrl}/api/AirQuality`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
     const responseData = await response.json();
     if (response.ok) {
       addToast({
